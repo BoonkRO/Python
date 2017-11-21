@@ -1,0 +1,3 @@
+Dividir el codigo en módulos --> MVC
+Código Open-Close
+El programa sabe que tipo de archivo tiene que leer, no se le especifica.
