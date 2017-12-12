@@ -1,17 +1,26 @@
 
-
 # Parte 1
 def passCaptchaPart1(captcha):
-    index = 0
-    result = 0
-    for number in captcha:
-        if index == len(captcha)-1:
-            if captcha[0] == captcha[-1]:
+    """
+    Recibe un parámetro que nos proporciona una en forma de string de números que recorreremos y debemos
+    saber la suma de todos los valores que coinciden con el valor que le sigue en la lista (return).
+        - Es una lista circular.
+        - Si el valor de la posición coincide con el valor de la posición siguiente se sumará dicho valor
+        al resultado final.
+        - Al ser circular, si el primer digito coincide con el último también cuenta.
+    :param captcha: recibe un string de 'x' números
+    :return: devuelve un número (int)
+    """
+    index = 0       # Variable que indica la posición en la que nos encontramos.
+    result = 0      # Variable que acumula en valor final.
+    for number in captcha:      # Bucle for para recorrer la lista de principio a fin.
+        if index == len(captcha)-1:     # Si coinciden el contador de posición con la última posición de la lista, entra para hacer la última comparación.
+            if captcha[0] == captcha[-1]:       # Compara valores para sumar a result en caso de coincidencia, devuelve el resultado y sale de la función.
                 result = result + int(captcha[0])
                 return result
             else:
                 return result
-        elif number == captcha[index+1]:
+        elif number == captcha[index+1]:        # Condición que sumará el valor a result en caso de coincidencia de valores con la siguiente posición y suma 1 a la variable de posición para pasar a la siguiente en la próxima vuelta.
             result = result + int(captcha[index])
             index += 1
         else:
@@ -20,21 +29,34 @@ def passCaptchaPart1(captcha):
 
 # Parte 2
 def passCaptchaPart2(captcha2):
-    mitad = round(len(captcha2)/2)
-    primeraMitad = captcha2[:mitad]
-    segundaMitad = captcha2[mitad:]
-    index = 0
-    resultado = 0
+    """
+    Recibe un parámetro que nos proporciona una en forma de string de números que recorreremos y debemos
+    saber la suma de todos los valores que coinciden con su posición, teniendo en cuenta que partimos la
+    lista por la mitad, por lo tanto tendremos dos listas de la misma longitud y debemos
+        - Partimos la lista por la mitad (si son 10 digitos, 10/2=5).
+        - Si el valor de la posición coincide con el valor de la misma posición en la segunda lista se
+        sumarán y ese valor se suma al resultado final.
+        - Al ser circular, si el primer dígito de la primera lista coincide con el último dígito de la
+         segunda lista también cuenta.
+    :param captcha2: recibe un string de 'x' números.
+    :return: devuelve un número (int).
+    """
 
-    while mitad >= index:
-    #for number in primeraMitad:
-        if mitad == index:
+    mitad = round(len(captcha2)/2)      # Variable con el valor de longitud de media lista.
+    primeraMitad = captcha2[:mitad]     # Contiene la primera parte de la lista, de principio a mitad.
+    segundaMitad = captcha2[mitad:]     # Contiene la segunda parte de la lista, de mitad al final.
+    index = 0       # Variable que indica la posición en la que nos encontramos.
+    resultado = 0       # Variable que acumula en valor final.
+
+    while mitad >= index:       # Bucle que se repite el numero de veces como posiciones tiene media lista.
+        if mitad == index:      # Si coincide la posición con el valor de longitud de media lista devuelve el resultado final.
             return resultado
-        elif primeraMitad[index] == segundaMitad[index]:
+        elif primeraMitad[index] == segundaMitad[index]:        # Si coinciden los valores se le suma la suma de ambos al resultado final y sumamos uno a la variable que marca la posición.
             resultado = resultado + int(primeraMitad[index]) + int(primeraMitad[index])
             index += 1
         else:
             index += 1
+
 
 # Casos test de las dos funciones
 if __name__ == '__main__':
@@ -60,7 +82,7 @@ if __name__ == '__main__':
     def casosTestPart2():
         test1 = '1122'
         assert passCaptchaPart2(test1) == 0, 'Error en test1'
-        test2 = '142554231'
+        test2 = '14255421'
         assert passCaptchaPart2(test2) == 12, 'Error en test1'
         test3 = '123456123456'
         assert passCaptchaPart2(test3) == 42, 'Error en test1'
